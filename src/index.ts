@@ -58,7 +58,7 @@ declare namespace Crypto {
         };
     }
 
-    function randomBytes(): (n: number) => Uint8Array;
+    function randomBytes(n: number): Uint8Array;
     function scalarMult(n: Uint8Array, p: Uint8Array): Uint8Array;
 }
 
