@@ -16,47 +16,47 @@ export namespace Encodable {
 
 declare type HashAlgorithms = unknown;
 declare type HmacAlgorithms = unknown;
-export declare namespace Crypto {
-    function hash(message: Uint8Array, algorithm?: HashAlgorithms): Uint8Array;
-    function hmac(key: Uint8Array, message: Uint8Array, length?: number, algorithm?: HmacAlgorithms): Uint8Array
-    function hkdf(key: Uint8Array, salt: Uint8Array, info?: Uint8Array | string, length?: number): Uint8Array;
+export namespace Crypto {
+    export declare function hash(message: Uint8Array, algorithm?: HashAlgorithms): Uint8Array;
+    export declare function hmac(key: Uint8Array, message: Uint8Array, length?: number, algorithm?: HmacAlgorithms): Uint8Array
+    export declare function hkdf(key: Uint8Array, salt: Uint8Array, info?: Uint8Array | string, length?: number): Uint8Array;
 
-    namespace box {
-        const keyLength: number;
-        const nonceLength: number;
-        function encrypt(msg: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array;
-        function decrypt(msg: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array | undefined;
+    export namespace box {
+        export declare const keyLength: number;
+        export declare const nonceLength: number;
+        export declare function encrypt(msg: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array;
+        export declare function decrypt(msg: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array | undefined;
     }
 
-    namespace ECDH {
-        const publicKeyLength: number;
-        const secretKeyLength: number;
-        function keyPair(secretKey?: Uint8Array): KeyPair;
-        function sharedKey(publicKey: Uint8Array, secretKey: Uint8Array): Uint8Array;
+    export namespace ECDH {
+        export declare const publicKeyLength: number;
+        export declare const secretKeyLength: number;
+        export declare function keyPair(secretKey?: Uint8Array): KeyPair;
+        export declare function sharedKey(publicKey: Uint8Array, secretKey: Uint8Array): Uint8Array;
 
-        type KeyPair = {
+        export type KeyPair = {
             publicKey: Uint8Array;
             secretKey: Uint8Array;
         };
     }
 
-    namespace EdDSA {
-        const publicKeyLength: number;
-        const secretKeyLength: number;
-        const signatureLength: number;
-        const seedLength: number;
+    export namespace EdDSA {
+        export declare const publicKeyLength: number;
+        export declare const secretKeyLength: number;
+        export declare const signatureLength: number;
+        export declare const seedLength: number;
 
-        function keyPair(secretKey?: Uint8Array): KeyPair;
-        function keyPairFromSeed(seed: Uint8Array): KeyPair;
-        function sign(msg: Uint8Array, secretKey: Uint8Array): Uint8Array;
-        function verify(msg: Uint8Array, sig: Uint8Array, publicKey: Uint8Array): boolean;
+        export declare function keyPair(secretKey?: Uint8Array): KeyPair;
+        export declare function keyPairFromSeed(seed: Uint8Array): KeyPair;
+        export declare function sign(msg: Uint8Array, secretKey: Uint8Array): Uint8Array;
+        export declare function verify(msg: Uint8Array, sig: Uint8Array, publicKey: Uint8Array): boolean;
 
-        type KeyPair = {
+        export type KeyPair = {
             publicKey: Uint8Array;
             secretKey: Uint8Array;
         };
     }
 
-    function randomBytes(): (n: number) => Uint8Array;
-    function scalarMult(n: Uint8Array, p: Uint8Array): Uint8Array;
+    export declare function randomBytes(): (n: number) => Uint8Array;
+    export declare function scalarMult(n: Uint8Array, p: Uint8Array): Uint8Array;
 }
