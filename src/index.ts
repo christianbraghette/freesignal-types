@@ -14,8 +14,8 @@ export namespace Encodable {
     }
 }
 
-export declare type HashAlgorithms = unknown;
-export declare type HmacAlgorithms = unknown;
+declare type HashAlgorithms = unknown;
+declare type HmacAlgorithms = unknown;
 export declare namespace Crypto {
     function hash(message: Uint8Array, algorithm?: HashAlgorithms): Uint8Array;
     function hmac(key: Uint8Array, message: Uint8Array, length?: number, algorithm?: HmacAlgorithms): Uint8Array
