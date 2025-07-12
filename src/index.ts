@@ -62,4 +62,4 @@ declare namespace Crypto {
     function scalarMult(n: Uint8Array, p: Uint8Array): Uint8Array;
 }
 
-export type Crypto = typeof Crypto;
+export type CryptoInterface = typeof Crypto;
