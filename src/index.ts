@@ -14,52 +14,49 @@ export namespace Encodable {
     }
 }
 
-declare type HashAlgorithms = unknown;
-declare type HmacAlgorithms = unknown;
+type HashAlgorithms = unknown;
+type HmacAlgorithms = unknown;
 
-declare namespace Crypto {
-    function hash(message: Uint8Array, algorithm?: HashAlgorithms): Uint8Array;
-    function hmac(key: Uint8Array, message: Uint8Array, length?: number, algorithm?: HmacAlgorithms): Uint8Array
-    function hkdf(key: Uint8Array, salt: Uint8Array, info?: Uint8Array | string, length?: number): Uint8Array;
+export interface Crypto {
+    hash(message: Uint8Array, algorithm?: HashAlgorithms): Uint8Array;
+    hmac(key: Uint8Array, message: Uint8Array, length?: number, algorithm?: HmacAlgorithms): Uint8Array
+    hkdf(key: Uint8Array, salt: Uint8Array, info?: Uint8Array | string, length?: number): Uint8Array;
 
-    namespace box {
-        const keyLength: number;
-        const nonceLength: number;
-        function encrypt(msg: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array;
-        function decrypt(msg: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array | undefined;
-    }
+    readonly box: Crypto.box;
+    readonly ECDH: Crypto.ECDH;
+    readonly EdDSA: Crypto.EdDSA;
 
-    namespace ECDH {
-        const publicKeyLength: number;
-        const secretKeyLength: number;
-        function keyPair(secretKey?: Uint8Array): KeyPair;
-        function sharedKey(publicKey: Uint8Array, secretKey: Uint8Array): Uint8Array;
-
-        type KeyPair = {
-            publicKey: Uint8Array;
-            secretKey: Uint8Array;
-        };
-    }
-
-    namespace EdDSA {
-        const publicKeyLength: number;
-        const secretKeyLength: number;
-        const signatureLength: number;
-        const seedLength: number;
-
-        function keyPair(secretKey?: Uint8Array): KeyPair;
-        function keyPairFromSeed(seed: Uint8Array): KeyPair;
-        function sign(msg: Uint8Array, secretKey: Uint8Array): Uint8Array;
-        function verify(msg: Uint8Array, sig: Uint8Array, publicKey: Uint8Array): boolean;
-
-        type KeyPair = {
-            publicKey: Uint8Array;
-            secretKey: Uint8Array;
-        };
-    }
-
-    function randomBytes(n: number): Uint8Array;
-    function scalarMult(n: Uint8Array, p: Uint8Array): Uint8Array;
+    randomBytes(n: number): Uint8Array;
+    scalarMult(n: Uint8Array, p: Uint8Array): Uint8Array;
 }
+export namespace Crypto {
+    export type KeyPair = unknown
 
-export type CryptoInterface = typeof Crypto;
+    export interface box {
+        readonly keyLength: number;
+        readonly nonceLength: number;
+        
+        encrypt(msg: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array;
+        decrypt(msg: Uint8Array, nonce: Uint8Array, key: Uint8Array): Uint8Array | undefined;
+    }
+
+    export interface ECDH {
+        readonly publicKeyLength: number;
+        readonly secretKeyLength: number;
+
+        keyPair(secretKey?: Uint8Array): KeyPair;
+        sharedKey(publicKey: Uint8Array, secretKey: Uint8Array): Uint8Array;
+    }
+
+    export interface EdDSA {
+        readonly publicKeyLength: number;
+        readonly secretKeyLength: number;
+        readonly signatureLength: number;
+        readonly seedLength: number;
+
+        keyPair(secretKey?: Uint8Array): KeyPair;
+        keyPairFromSeed(seed: Uint8Array): KeyPair;
+        sign(msg: Uint8Array, secretKey: Uint8Array): Uint8Array;
+        verify(msg: Uint8Array, sig: Uint8Array, publicKey: Uint8Array): boolean;
+    }
+}
