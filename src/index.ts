@@ -30,7 +30,10 @@ export interface Crypto {
     scalarMult(n: Uint8Array, p: Uint8Array): Uint8Array;
 }
 export namespace Crypto {
-    export type KeyPair = unknown
+    export type KeyPair = {
+        publicKey: Uint8Array;
+        secretKey: Uint8Array;
+    }
 
     export interface box {
         readonly keyLength: number;
